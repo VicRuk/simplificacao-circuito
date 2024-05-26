@@ -1,5 +1,10 @@
+#pip install sympy graphviz
+#pip install sympy
+#pip install Pillow
 import sympy as sp
 from sympy.logic.boolalg import *
+from graphviz import Digraph
+from PIL import Image
 
 def transformar_expressao(expressao):
     expr_sympy = sp.sympify(expressao, evaluate=False)
@@ -29,14 +34,55 @@ def simplificar_expressao(expr_transformada):
     
     return expr_simplificada
 
+def gerar_diagrama(expr, nome_arquivo):
+    def adicionar_nodos(expr, grafo, pai=None):
+        if expr.is_Atom:
+            grafo.node(str(expr), str(expr))
+            if pai:
+                grafo.edge(str(pai), str(expr))
+        elif isinstance(expr, Not):
+            nodo = f'Not_{str(expr.args[0])}'
+            grafo.node(nodo, 'NOT')
+            if pai:
+                grafo.edge(str(pai), nodo)
+            adicionar_nodos(expr.args[0], grafo, nodo)
+        else:
+            nodo = f'{str(expr.func)}_{str(expr)}'
+            grafo.node(nodo, str(expr.func))
+            if pai:
+                grafo.edge(str(pai), nodo)
+            for sub_expr in expr.args:
+                adicionar_nodos(sub_expr, grafo, nodo)
+    
+    grafo = Digraph()
+    adicionar_nodos(expr, grafo)
+    grafo.render(nome_arquivo, format='png', cleanup=True)
+
+def exibir_imagem(nome_arquivo):
+    img = Image.open(f"{nome_arquivo}.png")
+    img.show()
+
 def main():
     expressao_entrada = input("Digite uma expressão lógica: ")
     expressao_entrada = expressao_entrada.replace("<->", "==").replace("->", ">>").replace("V", "|").replace("or", "|").replace("and", "&").replace("∧", "&")
+    
     try:
+        # Transformação da expressão
         expressao_transformada = transformar_expressao(expressao_entrada)
+        # Simplificação da expressão
         expressao_simplificada = simplificar_expressao(expressao_transformada)
+        
+        # Gerar diagramas
+        gerar_diagrama(expressao_transformada, "circuito_original")
+        gerar_diagrama(expressao_simplificada, "circuito_simplificado")
+        
         expressao_saida = str(expressao_simplificada).replace(">>", "->").replace("==", "<->").replace("|", "V").replace("&", "∧")
         print("Expressão simplificada:", expressao_saida)
+        print("Circuitos gerados: 'circuito_original.png' e 'circuito_simplificado.png'")
+        
+        # Exibir imagens
+        exibir_imagem("circuito_original")
+        exibir_imagem("circuito_simplificado")
     except Exception as e:
         print("Erro ao processar a expressão:", e)
 
