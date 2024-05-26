@@ -1,1 +1,1 @@
-# simplificacao-circuito
+# Simplificação Circuito
