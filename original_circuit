@@ -1,0 +1,12 @@
+// Logical Circuit
+digraph {
+	"A & (B | C)" [label=AND]
+	A [label=A]
+	A -> "A & (B | C)"
+	"B | C" [label=OR]
+	"B | C" -> "A & (B | C)"
+	B [label=B]
+	B -> "B | C"
+	C [label=C]
+	C -> "B | C"
+}
