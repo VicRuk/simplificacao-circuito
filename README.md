@@ -23,7 +23,7 @@ Crie um programa que simplifique circuito lógicos.<br>
     # Adicione o caminho para o diretório onde o dot.exe está instalado. Por exemplo, C:\Program Files\Graphviz\bin.<br>
     # Clique em "OK" para fechar todas as janelas.<br>
 <h5>#5. Reinicie o terminal e verifique se foi certamente instalado digitando no Terminal (CMD)</h5>
-    # dot -version<br><br>
+    'dot -version'<br><br>
 
 <h1>Exemplos:</h1>
 <b>Entrada:</b><br>
