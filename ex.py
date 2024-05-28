@@ -1,3 +1,23 @@
+#INSTRUÇÕES DE COMO RODAR O PROGRAMA
+#1. INSTALE AS SEGUINTES BIBLIOTECAS NO TERMINAL
+    #pip install sympy
+    #pip install graphviz
+    #pip install Pillow
+
+#2. Baixe e instale Graphviz no seguinte link:
+    # https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/11.0.0/windows_10_cmake_Release_graphviz-install-11.0.0-win64.exe
+#3. Encontrar o diretório de instalação do Graphviz (Normalmente fica no endereço 'C:\Program Files\Graphviz\bin')
+#4. Adicionar ao PATH
+    # Abra o "Painel de Controle".
+    # Vá até "Sistema e Segurança" e clique em "Sistema".
+    # Clique em "Configurações avançadas do sistema" no lado esquerdo.
+    # Na aba "Avançado", clique no botão "Variáveis de Ambiente".
+    # Na seção "Variáveis do sistema", encontre a variável Path e selecione-a. Clique em "Editar".
+    # Adicione o caminho para o diretório onde o dot.exe está instalado. Por exemplo, C:\Program Files\Graphviz\bin.
+    # Clique em "OK" para fechar todas as janelas.
+#5. Reinicie o terminal e verifique se foi certamente instalado digitando no Terminal (CMD) 
+    # dot -version
+
 import sympy as sp
 from sympy.logic.boolalg import *
 from graphviz import Digraph
